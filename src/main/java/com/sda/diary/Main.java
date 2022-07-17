@@ -1,5 +1,6 @@
 package com.sda.diary;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -17,9 +18,12 @@ public class Main {
                 .buildMetadata()
                 .buildSessionFactory();
 
-        EntryRepository entryRepository = new EntryHibernateRepository(sessionFactory);
-        EntryService entryService = new EntryService(entryRepository);
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        EntryRepository entryRepository = new EntryHibernateRepository(sessionFactory);
+        ExternalTimeClient externalTimeClient = new ExternalTimeClient(objectMapper);
+        EntryService entryService = new EntryService(entryRepository, externalTimeClient);
         EntryController entryController = new EntryController(entryService, objectMapper);
         UserInterface userInterface = new UserInterface(entryController);
         userInterface.run();

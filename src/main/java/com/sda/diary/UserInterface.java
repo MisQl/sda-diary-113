@@ -1,14 +1,13 @@
 package com.sda.diary;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.Scanner;
 
+@RequiredArgsConstructor
 public class UserInterface {
 
     private final EntryController entryController;
-
-    public UserInterface(EntryController entryController) {
-        this.entryController = entryController;
-    }
 
     public void run() {
         Scanner scanner = new Scanner(System.in);

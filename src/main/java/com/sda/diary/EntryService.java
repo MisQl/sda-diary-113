@@ -1,14 +1,12 @@
 package com.sda.diary;
 
-import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class EntryService {
 
     private final EntryRepository entryRepository;
-
-    public EntryService(EntryRepository entryRepository) {
-        this.entryRepository = entryRepository;
-    }
+    private final ExternalTimeClient externalTimeClient;
 
     public Entry create(String title, String content) {
         if (title == null || title.isBlank()) {
@@ -21,7 +19,7 @@ public class EntryService {
         Entry entry = new Entry();
         entry.setTitle(title);
         entry.setContent(content);
-        entry.setCreatedDate(LocalDateTime.now());
+        entry.setCreatedDate(externalTimeClient.getTime());
 
         Entry savedEntry = entryRepository.save(entry);
 

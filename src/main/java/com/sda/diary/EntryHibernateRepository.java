@@ -1,19 +1,14 @@
 package com.sda.diary;
 
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+@RequiredArgsConstructor
 public class EntryHibernateRepository implements EntryRepository {
 
     private final SessionFactory sessionFactory;
-
-    public EntryHibernateRepository(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     public Entry save(Entry entry) {

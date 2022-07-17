@@ -1,16 +1,13 @@
 package com.sda.diary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class EntryController {
 
     private final EntryService entryService;
     private final ObjectMapper objectMapper;
-
-    public EntryController(EntryService entryService, ObjectMapper objectMapper) {
-        this.entryService = entryService;
-        this.objectMapper = objectMapper;
-    }
 
     // POST: /entries
     public String createEntry(String json) {
