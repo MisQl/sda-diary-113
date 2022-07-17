@@ -1,9 +1,9 @@
 package com.sda.diary;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -13,8 +13,12 @@ public class EntryServiceTest {
 
     @BeforeEach
     void setUp() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        ExternalTimeClient externalTimeClient = new ExternalTimeClient(objectMapper); // todo mock
+
         EntryRepository entryRepository = new EntryRepositoryMock();
-        entryService = new EntryService(entryRepository);
+        entryService = new EntryService(entryRepository, externalTimeClient);
     }
 
     @Test
