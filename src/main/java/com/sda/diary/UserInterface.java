@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    private EntryController entryController = new EntryController();
+    private final EntryController entryController;
+
+    public UserInterface(EntryController entryController) {
+        this.entryController = entryController;
+    }
 
     public void run() {
-
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Aplikacja jest uruchomiona\n");

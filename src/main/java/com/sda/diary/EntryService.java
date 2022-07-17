@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 
 public class EntryService {
 
+    private final EntryRepository entryRepository;
+
+    public EntryService(EntryRepository entryRepository) {
+        this.entryRepository = entryRepository;
+    }
+
     public Entry create(String title, String content) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Pole title nie może być puste");
@@ -17,7 +23,6 @@ public class EntryService {
         entry.setContent(content);
         entry.setCreatedDate(LocalDateTime.now());
 
-        EntryRepository entryRepository = new EntryRepository();
         Entry savedEntry = entryRepository.save(entry);
 
         return savedEntry;

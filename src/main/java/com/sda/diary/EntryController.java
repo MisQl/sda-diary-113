@@ -4,8 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class EntryController {
 
-    private EntryService entryService = new EntryService();
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final EntryService entryService;
+    private final ObjectMapper objectMapper;
+
+    public EntryController(EntryService entryService, ObjectMapper objectMapper) {
+        this.entryService = entryService;
+        this.objectMapper = objectMapper;
+    }
 
     // POST: /entries
     public String createEntry(String json) {
